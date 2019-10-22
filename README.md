@@ -1,7 +1,3 @@
-# date-range-picker
-日期范围选择框组件
-
-
 日期范围选择框组件 DateRangePicker
  {
      min:时间戳，
