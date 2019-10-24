@@ -302,7 +302,8 @@ class DatePicker extends Component {
     // 确定按钮
     // 传出 日期、时间、毫秒数
     confirm() {
-        let date = [this.state.chooseL,this.state.chooseR];
+        let { chooseL, chooseR } = this.state, { isTime } = this.props
+        let date = isTime ? [chooseL,chooseR] : [chooseL.split(" ")[0],chooseR.split(" ")[0]];
         this.state.chooseL&&this.state.chooseR ? this.props.confirm(date) :  this.props.confirm() 
     } 
     dateFormat(str){
@@ -421,15 +422,16 @@ class DatePicker extends Component {
             )
         }
         // 时间选择器
-        let timeSelect_left = null,timeSelect_right = null;
+        let timeSelect_left = null,timeSelect_right = null,showStr = '请选择一个日期范围: ...',chooseL = this.state.chooseL,chooseR = this.state.chooseR;
         if (this.props.isTime) {
             timeSelect_left = (<TimeSelect hours={this.state.left.hours} minutes={this.state.left.minutes} selectHanlder={this.selectTimeLeft.bind(this)} />)
             timeSelect_right = (<TimeSelect hours={this.state.right.hours} minutes={this.state.right.minutes} selectHanlder={this.selectTimeRight.bind(this)} />)
+        } else { 
+            chooseL = this.state.chooseL.split(" ")[0],chooseR = this.state.chooseR.split(" ")[0]
         }
-        let showStr = '请选择一个日期范围: ...',chooseL = this.state.chooseL,chooseR = this.state.chooseR;
         if(chooseL&&!chooseR){showStr = `开始: ${chooseL} ~ 结束: ...`}else if(chooseL&&chooseR){showStr=`开始: ${chooseL} ~ 结束: ${chooseR}`}
         return ( 
-            <div className="date-picker-group">
+            <div className="date-picker-group-along">
                <div className="options-group">
                     <div className="showDateAll">{showStr}</div>
                     <span className="option-btn confirm-btn" onClick={this.confirm.bind(this)}>{datepicker_left.lang[datepicker_left.data.lang].confirm}</span>

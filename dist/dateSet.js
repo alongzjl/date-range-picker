@@ -73,7 +73,6 @@ var DateSet = function (_React$Component) {
 		}
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DateSet.__proto__ || Object.getPrototypeOf(DateSet)).call.apply(_ref, [this].concat(args))), _this), _this.show = function () {
-			debugger;
 			_this.datePickerModal.show();
 		}, _this.cancelClick = function () {
 			_this.datePickerModal.hide();

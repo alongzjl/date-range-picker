@@ -6,7 +6,9 @@
 import React,{
     Component
 } from "react";
-import DateSet from './dateSet';
+import PropTypes from 'prop-types';
+import DatePicker from './DatePicker';
+import { Input } from "antd";
 import "./index.less";
 import 'antd/dist/antd.css';
  //精确判断元素的类型
@@ -14,8 +16,15 @@ import 'antd/dist/antd.css';
     return Object.prototype.toString.call(obj).slice(8,-1).toLowerCase()
 }   
 export default class DatePickerRY extends Component {
-	defaultProps = {
-		onChange() { }
+	static propTypes = {
+		onChange: PropTypes.func,
+		placeholder: PropTypes.string,
+		showTime:PropTypes.bool 
+	}
+	static defaultProps = {
+		onChange() { },
+		placeholder: "点击选择日期范围",
+		showTime:false
 	}
 	constructor(props) {
 		super(props)
@@ -26,43 +35,54 @@ export default class DatePickerRY extends Component {
 		this.state = {
 			min:props.min || min,
 			max:props.max || max,
-			show:'点击选择日期范围',
-			now: '',
+			now: new Date().getTime(),
+			showMode:false,
 			defaultValue:props.defaultValue
 		}
 	}
 	componentWillMount(){ 
 		
 	}  
-	showDate = () => {
-		let now = new Date().getTime()
-		this.setState({now:now},()=>{
-			this.datePickerModal.show()
-		}) 
+	showDateMode = () => {
+		this.setState({showMode:true})
 	}  
+	hideDateMode = () => {
+		this.setState({showMode:false})
+	}
 	dateChange = date => {
 		if(getAttr(date) === 'array'){
-			this.setState({show:`${date[0]}-${date[1]}`})
-			this.props.onChange&&this.props.onChange(JSON.stringify(date))
+			this.setState({ defaultValue: date, showMode: false }, () => { 
+				this.props.onChange&&this.props.onChange(JSON.stringify(date))
+			})
 		}else{
-			this.props.onChange&&this.props.onChange(date)
+			 this.setState({ showMode: false }, () => { 
+				this.props.onChange && this.props.onChange(date)
+			})
 		}
 	} 
 	render(){
-		let { defaultValue } = this.state,
-			show = defaultValue ? `${defaultValue[0]}-${defaultValue[1]}` : this.state.show
+		let { defaultValue,showMode,showTime } = this.state,
+			value = defaultValue ? `${defaultValue[0]}-${defaultValue[1]}` : ""
 		return (
-				<div> 
-					<div onClick={this.showDate} className="dateInput">{show}</div>
-					<DateSet 
-						ref={com => { this.datePickerModal = com }} 
+			<div className="along-range"> 
+				<Input
+					placeholder={this.props.placeholder}
+					value={value}
+					readOnly
+					onClick={this.showDateMode}
+				/>
+				{
+					showMode ? <DatePicker 
 						min={this.state.min} 
 						max={this.state.max} 
-						confirm={this.dateChange}
+						isTime={showTime}
+						confirm={this.dateChange} 
+						cancel={this.hideDateMode}
 						now={this.state.now}
-						defaultValue={defaultValue}
-						remove={()=>{this.dateChange('')}} 
-					/>
+						defaultValue={defaultValue} 
+						remove={() => { this.setState({defaultValue:""})}} 
+					/> : null
+				}
 				</div>
 			)
 	}

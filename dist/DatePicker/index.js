@@ -379,7 +379,12 @@ var DatePicker = function (_Component) {
     }, {
         key: "confirm",
         value: function confirm() {
-            var date = [this.state.chooseL, this.state.chooseR];
+            var _state = this.state,
+                chooseL = _state.chooseL,
+                chooseR = _state.chooseR,
+                isTime = this.props.isTime;
+
+            var date = isTime ? [chooseL, chooseR] : [chooseL.split(" ")[0], chooseR.split(" ")[0]];
             this.state.chooseL && this.state.chooseR ? this.props.confirm(date) : this.props.confirm();
         }
     }, {
@@ -521,14 +526,16 @@ var DatePicker = function (_Component) {
             }
             // 时间选择器
             var timeSelect_left = null,
-                timeSelect_right = null;
+                timeSelect_right = null,
+                showStr = '请选择一个日期范围: ...',
+                chooseL = this.state.chooseL,
+                chooseR = this.state.chooseR;
             if (this.props.isTime) {
                 timeSelect_left = _react2.default.createElement(_time2.default, { hours: this.state.left.hours, minutes: this.state.left.minutes, selectHanlder: this.selectTimeLeft.bind(this) });
                 timeSelect_right = _react2.default.createElement(_time2.default, { hours: this.state.right.hours, minutes: this.state.right.minutes, selectHanlder: this.selectTimeRight.bind(this) });
+            } else {
+                chooseL = this.state.chooseL.split(" ")[0], chooseR = this.state.chooseR.split(" ")[0];
             }
-            var showStr = '请选择一个日期范围: ...',
-                chooseL = this.state.chooseL,
-                chooseR = this.state.chooseR;
             if (chooseL && !chooseR) {
                 showStr = "\u5F00\u59CB: " + chooseL + " ~ \u7ED3\u675F: ...";
             } else if (chooseL && chooseR) {
@@ -536,7 +543,7 @@ var DatePicker = function (_Component) {
             }
             return _react2.default.createElement(
                 "div",
-                { className: "date-picker-group" },
+                { className: "date-picker-group-along" },
                 _react2.default.createElement(
                     "div",
                     { className: "options-group" },

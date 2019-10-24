@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -6,15 +6,23 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _dateSet = require("./dateSet");
+var _propTypes = require('prop-types');
 
-var _dateSet2 = _interopRequireDefault(_dateSet);
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
-require("./index.less");
+var _DatePicker = require('./DatePicker');
+
+var _DatePicker2 = _interopRequireDefault(_DatePicker);
+
+var _antd = require('antd');
+
+require('./index.less');
+
+require('antd/dist/antd.css');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40,54 +48,75 @@ var DatePickerRY = function (_Component) {
 
 		var _this = _possibleConstructorReturn(this, (DatePickerRY.__proto__ || Object.getPrototypeOf(DatePickerRY)).call(this, props));
 
-		_initialiseProps.call(_this);
+		_this.showDateMode = function () {
+			_this.setState({ showMode: true });
+		};
+
+		_this.hideDateMode = function () {
+			_this.setState({ showMode: false });
+		};
+
+		_this.dateChange = function (date) {
+			if (getAttr(date) === 'array') {
+				_this.setState({ defaultValue: date, showMode: false }, function () {
+					_this.props.onChange && _this.props.onChange(JSON.stringify(date));
+				});
+			} else {
+				_this.setState({ showMode: false }, function () {
+					_this.props.onChange && _this.props.onChange(date);
+				});
+			}
+		};
 
 		var now = new Date(),
-		    str = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate(),
+		    str = now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDate(),
 		    min = new Date(str).getTime(),
 		    max = min + 90 * 24 * 60 * 60 * 1000;
 		_this.state = {
 			min: props.min || min,
 			max: props.max || max,
-			show: '点击选择日期范围',
-			now: '',
+			now: new Date().getTime(),
+			showMode: false,
 			defaultValue: props.defaultValue
 		};
 		return _this;
 	}
 
 	_createClass(DatePickerRY, [{
-		key: "componentWillMount",
+		key: 'componentWillMount',
 		value: function componentWillMount() {}
 	}, {
-		key: "render",
+		key: 'render',
 		value: function render() {
 			var _this2 = this;
 
-			var defaultValue = this.state.defaultValue,
-			    show = defaultValue ? defaultValue[0] + "-" + defaultValue[1] : this.state.show;
+			var _state = this.state,
+			    defaultValue = _state.defaultValue,
+			    showMode = _state.showMode,
+			    showTime = _state.showTime,
+			    value = defaultValue ? defaultValue[0] + '-' + defaultValue[1] : "";
 
 			return _react2.default.createElement(
-				"div",
-				null,
-				_react2.default.createElement(
-					"div",
-					{ onClick: this.showDate, className: "dateInput" },
-					show
-				),
-				_react2.default.createElement(_dateSet2.default, {
-					ref: function ref(com) {
-						_this2.datePickerModal = com;
-					},
+				'div',
+				{ className: 'along-range' },
+				_react2.default.createElement(_antd.Input, {
+					placeholder: this.props.placeholder,
+					value: value,
+					readOnly: true,
+					onClick: this.showDateMode
+				}),
+				showMode ? _react2.default.createElement(_DatePicker2.default, {
 					min: this.state.min,
 					max: this.state.max,
+					isTime: showTime,
 					confirm: this.dateChange,
+					cancel: this.hideDateMode,
 					now: this.state.now,
 					defaultValue: defaultValue,
 					remove: function remove() {
-						_this2.dateChange('');
+						_this2.setState({ defaultValue: "" });
 					}
-				})
+				}) : null
 			);
 		}
 	}]);
@@ -95,30 +124,15 @@ var DatePickerRY = function (_Component) {
 	return DatePickerRY;
 }(_react.Component);
 
-var _initialiseProps = function _initialiseProps() {
-	var _this3 = this;
-
-	this.defaultProps = {
-		onChange: function onChange() {}
-	};
-
-	this.showDate = function () {
-		debugger;
-		console.log(123);
-		var now = new Date().getTime();
-		_this3.setState({ now: now }, function () {
-			_this3.datePickerModal.show();
-		});
-	};
-
-	this.dateChange = function (date) {
-		if (getAttr(date) === 'array') {
-			_this3.setState({ show: date[0] + "-" + date[1] });
-			_this3.props.onChange && _this3.props.onChange(JSON.stringify(date));
-		} else {
-			_this3.props.onChange && _this3.props.onChange(date);
-		}
-	};
+DatePickerRY.propTypes = {
+	onChange: _propTypes2.default.func,
+	placeholder: _propTypes2.default.string,
+	showTime: _propTypes2.default.bool
 };
+DatePickerRY.defaultProps = {
+	onChange: function onChange() {},
 
+	placeholder: "点击选择日期范围",
+	showTime: false
+};
 exports.default = DatePickerRY;
