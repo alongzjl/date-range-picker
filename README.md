@@ -14,7 +14,7 @@ update
 params {
     min:min,//最小值
     max:max,//最大值
-    showMode:false,//是否显示time
+    showTime:false,//是否显示time
     onchange:(date)=>{}//回调函数 返回 date == ["2019-09-12 12:20","2019-09-12 12:20"]
     defaultValue:["2019-09-12 12:20","2019-09-12 12:20"]
 }
