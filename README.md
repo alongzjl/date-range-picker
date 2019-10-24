@@ -9,6 +9,7 @@
 1.0.6 
 webpack打包
 1.0.11 react 15.6.1
+
 update
 params {
     min:min,//最小值

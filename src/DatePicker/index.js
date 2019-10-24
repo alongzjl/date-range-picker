@@ -10,7 +10,7 @@ import DatePickerCore from "./core";
 import DateSelectItem from "./select";
 import DateItem from "./date-item";
 import TimeSelect from "./time";
-import "./style.less";
+import "./style.css";
 
 const datepicker_left = new DatePickerCore();
 const datepicker_right = new DatePickerCore();

@@ -9,7 +9,7 @@ import React,{
 import PropTypes from 'prop-types';
 import DatePicker from './DatePicker';
 import { Input } from "antd";
-import "./index.less";
+import "./index.css";
 import 'antd/dist/antd.css';
  //精确判断元素的类型
  function getAttr(obj) {
@@ -37,7 +37,8 @@ export default class DatePickerRY extends Component {
 			max:props.max || max,
 			now: new Date().getTime(),
 			showMode:false,
-			defaultValue:props.defaultValue
+			defaultValue: props.defaultValue,
+			showTime:props.showTime
 		}
 	}
 	componentWillMount(){ 
