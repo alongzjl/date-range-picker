@@ -28,7 +28,7 @@ var _time = require("./time");
 
 var _time2 = _interopRequireDefault(_time);
 
-require("./style.less");
+require("./style.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

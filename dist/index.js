@@ -20,7 +20,7 @@ var _DatePicker2 = _interopRequireDefault(_DatePicker);
 
 var _antd = require('antd');
 
-require('./index.less');
+require('./index.css');
 
 require('antd/dist/antd.css');
 
@@ -77,7 +77,8 @@ var DatePickerRY = function (_Component) {
 			max: props.max || max,
 			now: new Date().getTime(),
 			showMode: false,
-			defaultValue: props.defaultValue
+			defaultValue: props.defaultValue,
+			showTime: props.showTime
 		};
 		return _this;
 	}
