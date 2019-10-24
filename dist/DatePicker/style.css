@@ -1,68 +1,72 @@
-.date-picker-group {
+.date-picker-group-along {
   width: 720px;
-  height: 420px;
   padding: 20px;
   background: #fff;
+  position: absolute;
+  left:0;
+  top:32px;
+  z-index: 100000;
+  border:1px solid #d9d9d9;
 }
-.date-picker-group .left,
-.date-picker-group .right {
+.date-picker-group-along .left,
+.date-picker-group-along .right {
   width: 320px;
   float: left;
   position: relative;
   margin-top: 40px;
 }
-.date-picker-group .left {
+.date-picker-group-along .left {
   margin-right: 30px;
 }
-.date-picker-group *,
-.date-picker-group *::after,
-.date-picker-group *::before {
+.date-picker-group-along *,
+.date-picker-group-along *::after,
+.date-picker-group-along *::before {
   box-sizing: border-box;
 }
-.date-picker-group .ant-slider {
+.date-picker-group-along .ant-slider {
   margin-top: 5px;
 }
-.date-picker-group table {
+.date-picker-group-along table {
   width: 100%;
 }
-.date-picker-group thead tr {
+.date-picker-group-along thead tr {
   height: 40px;
   border-bottom: 1px solid #ddd;
 }
-.date-picker-group thead th {
+.date-picker-group-along thead th {
   width: 51.4px;
   text-align: center;
   border: 1px solid #ddd;
   background: #f5f6f7;
 }
-.date-picker-group tbody tr {
+.date-picker-group-along tbody tr {
   height: 36px;
   border-bottom: 1px solid #ddd;
 }
-.date-picker-group tbody td {
+.date-picker-group-along tbody td {
   text-align: center;
   border: 1px solid #ddd;
   color: #333;
   cursor: pointer;
 }
-.date-picker-group tbody .now-date {
+.date-picker-group-along tbody .now-date {
   font-weight: 700;
   color: #fff;
   background: #91d5ff;
 }
-.date-picker-group tbody .choosedDate {
+.date-picker-group-along tbody .choosedDate {
   font-weight: 700;
   color: #fff;
   background: #91d5ff;
   opacity: 0.6;
 }
-.date-picker-group tbody .not-now-month {
+.date-picker-group-along tbody .not-now-month {
   color: #bbb;
   background: #f9f9f9;
   opacity: 1;
   font-weight: normal;
 }
-.date-picker-group .options-group {
+.date-picker-group-along .options-group {
   position: absolute;
   top: 0px;
   right: 20px;
@@ -70,12 +74,12 @@
   margin-top: 10px;
   width: 90%;
 }
-.date-picker-group .options-group .showDateAll {
+.date-picker-group-along .options-group .showDateAll {
   height: 32px;
   line-height: 32px;
   font-size: 14px;
 }
-.date-picker-group .options-group .option-btn {
+.date-picker-group-along .options-group .option-btn {
   display: block;
   position: absolute;
   top: 0;
@@ -87,21 +91,21 @@
   border-radius: 4px;
   cursor: pointer;
 }
-.date-picker-group .options-group .option-btn:active {
+.date-picker-group-along .options-group .option-btn:active {
   transform: scale(0.9);
 }
-.date-picker-group .options-group .confirm-btn {
+.date-picker-group-along .options-group .confirm-btn {
   right: 0;
   color: #fff;
   border: 1px solid #91d5ff;
   background: #91d5ff;
 }
-.date-picker-group .options-group .cancel-btn {
+.date-picker-group-along .options-group .cancel-btn {
   right: 90px;
   color: #888;
   border: 1px solid #ccc;
 }
-.date-picker-group .options-group .remove-btn {
+.date-picker-group-along .options-group .remove-btn {
   right: 180px;
   color: #fff;
   border: 1px solid #ed3125;

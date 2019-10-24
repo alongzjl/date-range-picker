@@ -1,6 +1,10 @@
+
 .dateInput {
-  width: 100%;
-  color: rgba(0, 0, 0, 0.65);
-  background: #fff;
-  cursor: pointer;
+	width:100%;
+	color: rgba(0, 0, 0, .65);
+	background: #fff;
+	cursor: pointer;
+} 
+.along-range {
+	position: relative;
 }
