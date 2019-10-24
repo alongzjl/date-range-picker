@@ -1,13 +1,14 @@
 
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
     entry: {
-        front: './src/index.js'
+        front: './src/test.js'
     },
-    mode:"development",
+    // mode:"development",
     output: { path: `${__dirname}/dist`, filename: 'index.js' },
     module: {
         rules: [{
@@ -33,6 +34,11 @@ module.exports = {
         modules: [path.resolve(__dirname, 'node_modules')]
     },
     plugins: [
-        new ExtractTextPlugin({ filename: 'index.css' })
+        new ExtractTextPlugin({ filename: 'index.css' }),
+        new HtmlWebpackPlugin({
+            chunks: ['front'],
+            filename: 'index.html',
+            template: path.join(__dirname, '/index.html'),
+        })
     ] 
 };

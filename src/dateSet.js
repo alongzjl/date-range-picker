@@ -36,7 +36,6 @@ const commonCss = {
 export default class DateSet extends React.Component {
 	
 	show = () => {
-		debugger
 		this.datePickerModal.show()
 	}
 	cancelClick = () => {

@@ -3,19 +3,16 @@
 	by--Along  2018-10-30
 */
 
-
-
 import React,{
     Component
 } from "react";
-import DateSet from './dateSet'
+import DateSet from './dateSet';
 import "./index.less";
- 
+import 'antd/dist/antd.css';
  //精确判断元素的类型
  function getAttr(obj) {
     return Object.prototype.toString.call(obj).slice(8,-1).toLowerCase()
-} 
-  
+}   
 export default class DatePickerRY extends Component {
 	defaultProps = {
 		onChange() { }
@@ -38,8 +35,6 @@ export default class DatePickerRY extends Component {
 		
 	}  
 	showDate = () => {
-		debugger
-		console.log(123)
 		let now = new Date().getTime()
 		this.setState({now:now},()=>{
 			this.datePickerModal.show()
@@ -72,3 +67,4 @@ export default class DatePickerRY extends Component {
 			)
 	}
 }
+
